@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CelebsAPI.Models
 {
+	[Serializable]
 	public class Celebrity
 	{
 		public int Id { get; set; }

@@ -1,49 +1,37 @@
-﻿using System;
+﻿using CelebsAPI.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.IO;
-using OpenScraping.Config;
-using System.Text;
-using OpenScraping;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using JsonFlatFileDataStore;
-using CelebsAPI.Models;
 
 namespace CelebsAPI.Controllers
 {
 	public class ValuesController : ApiController
 	{
-		string celebsDB = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/celebs.json");
+		ICelebsDB DB;
+
+		public ValuesController()
+		{
+			DB = new CelebsDB();
+		}
 
 		// GET api/values
 		public IEnumerable<Celebrity> Get()
 		{
-			var store = new DataStore(celebsDB);
-			var collection = store.GetCollection<Celebrity>("celebrities");
-			return collection.AsQueryable();
+			return DB.Get();
 		}
 
 		// GET api/values/5
 		public Celebrity Get(int id)
-		{		
-			var store = new DataStore(celebsDB);
-			
-			var collection = store.GetCollection<Celebrity>("celebrities");
-
+		{	
 			try
 			{
-				var wt = collection.AsQueryable().Single( c => c.Id == id);
-				return wt;
+				return DB.Get(id);
 			}
 			catch (InvalidOperationException )
 			{
 				throw new HttpResponseException(HttpStatusCode.NotFound);
-			}
-			
+			}			
 		}
 
 		// POST api/values
@@ -60,10 +48,8 @@ namespace CelebsAPI.Controllers
 
 		// DELETE api/values/5
 		public void Delete(int id)
-		{			
-			var store = new DataStore(celebsDB);
-			var collection = store.GetCollection<Celebrity>("celebrities");
-			collection.DeleteOne(c => c.Id == id);
+		{
+			DB.Delete(id);
 		}
 	}
 }
