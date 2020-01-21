@@ -1,0 +1,8 @@
+{
+  "celebrities": {
+    "_xpath": "//div[@id='name-born-info']",
+    "birth": ".//time/@datetime"    
+  }
+}
+
+

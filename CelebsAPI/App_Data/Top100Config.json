@@ -1,0 +1,15 @@
+{
+  "celebrities": {
+    "_xpath": "//div[@class='lister-list']//div[starts-with(@class, 'lister-item mode-detail')]",
+    "id": {
+      "_xpath": ".//h3[contains(@class, 'lister-item-header')]/span",
+      "_transformation": "ExtractIntegerTransformation"
+    },
+    "name": ".//h3[contains(@class, 'lister-item-header')]/a",
+    "page": ".//h3[contains(@class, 'lister-item-header')]/a/@href",
+    "occupation": ".//p[@class='text-muted text-small']/text()[1]",
+    "image": ".//div[contains(@class, 'lister-item-image')]/a/img/@src"
+  }
+}
+
+
