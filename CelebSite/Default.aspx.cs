@@ -1,40 +1,34 @@
-﻿using CelebsAPI.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using CelebsAPI.Models;
 
-public partial class _Default : Page
+namespace CelebsSite
 {
-	protected void Page_Load(object sender, EventArgs e)
+	public partial class _Default : Page
 	{
-		
-		HttpClient hc = new HttpClient();
-		hc.BaseAddress = new Uri("http://localhost:50382/api/");
-
-		var consumeApi = hc.GetAsync("values");
-		consumeApi.Wait();
-
-		IEnumerable<Celebrity> celebs = null;
-
-		var readdaata = consumeApi.Result;
-
-
-		if (readdaata.IsSuccessStatusCode)
+		protected void Page_Load(object sender, EventArgs e)
 		{
-			var displayresults = readdaata.Content.ReadAsAsync<IList<Celebrity>>();
-			displayresults.Wait();
-			celebs = displayresults.Result;
-			CelebsList.DataSource = celebs;
-			CelebsList.DataBind();
+			var hc = new HttpClient();
+			hc.BaseAddress = new Uri("http://localhost:50382/api/");
 
+			var consumeApi = hc.GetAsync("values");
+			consumeApi.Wait();
+
+			IEnumerable<Celebrity> celebs = null;
+
+			var readdata = consumeApi.Result;
+
+
+			if (readdata.IsSuccessStatusCode)
+			{
+				var displayresults = readdata.Content.ReadAsAsync<IList<Celebrity>>();
+				displayresults.Wait();
+				celebs = displayresults.Result;
+				CelebsList.DataSource = celebs;
+				CelebsList.DataBind();
+			}
 		}
-
-	}
-	
-	protected void CelebsList_ItemDataBound(object sender, ListViewItemEventArgs e)
-	{
-		var a = e.Item.DataItem;
 	}
 }

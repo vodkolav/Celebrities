@@ -30,7 +30,7 @@ namespace CelebsAPI.Models
 		private readonly string IMDBhtml = HostingEnvironment.MapPath(@"~/App_Data/IMDB.html");
 		private readonly string imgPath = HostingEnvironment.MapPath(@"~/App_Data/Images/");
 
-		DataStore store;
+		private DataStore store;
 		
 		public CelebsDB()
 		{
@@ -74,7 +74,6 @@ namespace CelebsAPI.Models
 
 			File.WriteAllText(DBfile, textresult);
 
-			//return textresult;
 		}
 
 		private  JToken ScrapeCeleb(JToken jToken)

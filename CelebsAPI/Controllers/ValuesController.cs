@@ -8,7 +8,7 @@ namespace CelebsAPI.Controllers
 {
 	public class ValuesController : ApiController
 	{
-		ICelebsDB DB;
+		private ICelebsDB DB;
 
 		public ValuesController()
 		{
